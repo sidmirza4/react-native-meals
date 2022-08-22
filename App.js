@@ -9,6 +9,7 @@ import CategoriesScreen from "./screens/CategoriesScreen";
 import MealsOverviewScreen from "./screens/MealsOverviewScreen";
 import MealDetailsScreen from "./screens/MealDetailsScreen";
 import FavoritesScreen from "./screens/FavoritesScreen";
+import FavoriteContextProvider from "./store/context/favorite-context";
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -59,33 +60,38 @@ export default function App() {
 	return (
 		<>
 			<StatusBar style="light" />
-			<NavigationContainer>
-				<Stack.Navigator
-					screenOptions={{
-						headerStyle: {
-							backgroundColor: "#351401",
-						},
-						headerTintColor: "#fff",
-						contentStyle: {
-							backgroundColor: "#3f2f25",
-						},
-					}}
-				>
-					<Stack.Screen
-						name="Drawer"
-						component={DrawerNavigator}
-						options={{
-							headerShown: false,
+			<FavoriteContextProvider>
+				<NavigationContainer>
+					<Stack.Navigator
+						screenOptions={{
+							headerStyle: {
+								backgroundColor: "#351401",
+							},
+							headerTintColor: "#fff",
+							contentStyle: {
+								backgroundColor: "#3f2f25",
+							},
 						}}
-					/>
-					<Stack.Screen name="MealsOverview" component={MealsOverviewScreen} />
-					<Stack.Screen
-						name="MealDetails"
-						component={MealDetailsScreen}
-						options={{ title: "About the meal" }}
-					/>
-				</Stack.Navigator>
-			</NavigationContainer>
+					>
+						<Stack.Screen
+							name="Drawer"
+							component={DrawerNavigator}
+							options={{
+								headerShown: false,
+							}}
+						/>
+						<Stack.Screen
+							name="MealsOverview"
+							component={MealsOverviewScreen}
+						/>
+						<Stack.Screen
+							name="MealDetails"
+							component={MealDetailsScreen}
+							options={{ title: "About the meal" }}
+						/>
+					</Stack.Navigator>
+				</NavigationContainer>
+			</FavoriteContextProvider>
 		</>
 	);
 }
